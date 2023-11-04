@@ -1,9 +1,9 @@
 export default {
   title: 'CTWorks - Technical Test',
   table: {
-    fieldLabel: 'Field label',
-    dataValue: 'Data value',
-    addRow: 'Add row'
+    labelHeader: 'Field label',
+    dataHeader: 'Data value',
+    addRowBtn: 'Add row'
   },
   exportBtn: 'Export PDF'
 };
