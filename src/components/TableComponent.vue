@@ -24,6 +24,13 @@
         />
       </tr>
     </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3">
+          <button @click="addRow">{{ $t('table.addRowBtn') }}</button>
+        </td>
+      </tr>
+    </tfoot>
   </table>
 </template>
 
@@ -60,7 +67,11 @@ export default defineComponent({
       context.emit('updateRowData', rowIndex, dataIndex, value);
     }
 
-    return { updateRowData, updateRowLabel };
+    function addRow() {
+      context.emit('addRow');
+    }
+
+    return { updateRowData, updateRowLabel, addRow };
   }
 });
 </script>

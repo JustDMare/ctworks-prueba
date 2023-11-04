@@ -4,6 +4,7 @@
       :table-data="tableData"
       @updateRowData="updateRowData"
       @updateRowLabel="updateRowLabel"
+      @addRow="addRow"
     ></table-component>
   </q-page>
 </template>
@@ -48,7 +49,13 @@ export default defineComponent({
     function updateRowData(rowIndex: number, dataIndex: number, value: string) {
       tableData.value[rowIndex].data[dataIndex] = value;
     }
-    return { tableData, updateRowData, updateRowLabel };
+    /**
+     * Adds a new row to the table with default values.
+     */
+    function addRow() {
+      tableData.value.push({ label: 'label', data: [''] });
+    }
+    return { tableData, updateRowData, updateRowLabel, addRow };
   }
 });
 </script>
