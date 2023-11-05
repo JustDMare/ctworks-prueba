@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref } from 'vue';
-import { MAX_NUMBER_OF_CELLS } from 'src/config/default-values';
+import { MAX_NUMBER_OF_DATA_CELLS } from 'src/config/default-values';
 
 export default defineComponent({
   name: 'NewRowDialog',
@@ -43,14 +43,14 @@ export default defineComponent({
   setup(props, context) {
     /**
      * Computed property to generate the options for the `q-select` component based on the
-     * maximum number of cells allowed by `MAX_NUMBER_OF_CELLS`.
+     * maximum number of cells allowed by `MAX_NUMBER_OF_DATA_CELLS`.
      * @computed
-     * @returns An array of numbers from 1 to `MAX_NUMBER_OF_CELLS`.
-     * @see MAX_NUMBER_OF_CELLS
+     * @returns An array of numbers from 1 to `MAX_NUMBER_OF_DATA_CELLS`.
+     * @see MAX_NUMBER_OF_DATA_CELLS
      */
     const options = computed(() => {
       const options = [];
-      for (let i = 1; i <= MAX_NUMBER_OF_CELLS; i++) {
+      for (let i = 1; i <= MAX_NUMBER_OF_DATA_CELLS; i++) {
         options.push(i);
       }
       return options;

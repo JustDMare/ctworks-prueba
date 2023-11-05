@@ -7,7 +7,7 @@
       @addRow="addRow"
       @openNewRowDialog="updateNewRowDialogVisibility(true)"
     ></table-component>
-    <q-btn flat :label="$t('exportBtn')" @click="exportToPDF" />
+    <q-btn flat :label="$t('exportBtn')" @click="exportToPDF(tableData)" />
     <new-row-dialog
       :is-open="isNewRowDialogOpen"
       @closeNewRowDialog="updateNewRowDialogVisibility"
