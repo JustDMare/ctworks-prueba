@@ -5,24 +5,40 @@
       @updateRowData="updateRowData"
       @updateRowLabel="updateRowLabel"
       @addRow="addRow"
+      @openNewRowDialog="updateNewRowDialogVisibility(true)"
     ></table-component>
+    <new-row-dialog
+      :is-open="isNewRowDialogOpen"
+      @closeNewRowDialog="updateNewRowDialogVisibility"
+      @addNewRow="addRow"
+    ></new-row-dialog>
   </q-page>
 </template>
 
 <script lang="ts">
 import TableComponent from 'src/components/TableComponent.vue';
+import NewRowDialog from 'src/components/NewRowDialog.vue';
 import { defineComponent, ref } from 'vue';
 import { TableData } from 'src/models/table-data';
 
 export default defineComponent({
   name: 'PageIndex',
-  components: { TableComponent },
+  components: { TableComponent, NewRowDialog },
   setup() {
     const tableData = ref<TableData>([
       { label: 'value_1', data: ['343'] },
       { label: 'value_2', data: ['32', '54'] },
       { label: 'value_3', data: ['6343'] }
     ]);
+    const isNewRowDialogOpen = ref(false);
+
+    /**
+     * Updates the visibility of the NewRowDialog.
+     * @param isOpen The new visibility state of the dialog.
+     */
+    function updateNewRowDialogVisibility(isOpen: boolean) {
+      isNewRowDialogOpen.value = isOpen;
+    }
     /**
      * Updates the label of a row.
      * @param rowIndex The index of the row to update.
@@ -52,10 +68,21 @@ export default defineComponent({
     /**
      * Adds a new row to the table with default values.
      */
-    function addRow() {
-      tableData.value.push({ label: 'label', data: [''] });
+    function addRow(numberOfDataCells: number) {
+      const data: string[] = [];
+      for (let i = 0; i < numberOfDataCells; i++) {
+        data.push('');
+      }
+      tableData.value.push({ label: 'label', data });
     }
-    return { tableData, updateRowData, updateRowLabel, addRow };
+    return {
+      tableData,
+      updateRowData,
+      updateRowLabel,
+      addRow,
+      isNewRowDialogOpen,
+      updateNewRowDialogVisibility
+    };
   }
 });
 </script>

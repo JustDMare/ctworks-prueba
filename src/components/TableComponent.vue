@@ -27,7 +27,9 @@
     <tfoot>
       <tr>
         <td colspan="3">
-          <button @click="addRow">{{ $t('table.addRowBtn') }}</button>
+          <button @click="$emit('openNewRowDialog')">
+            {{ $t('table.addRowBtn') }}
+          </button>
         </td>
       </tr>
     </tfoot>
