@@ -26,6 +26,7 @@ export default defineComponent({
      * Watches for changes in the `localCellData` attribute and emits an event to update
      * the `tableData` object in the parent component.
      * @watch localCellData
+     * @emits updateCellData The event to update the data of the cell.
      */
     watch(
       () => localCellData.value,

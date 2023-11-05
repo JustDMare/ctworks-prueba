@@ -55,26 +55,36 @@ export default defineComponent({
   setup(props, context) {
     /**
      * Sends upwards the event to update the label of a row.
-     * @param rowIndex The index of the row to update.
-     * @param value The new value of the label.
+     * @param {number} rowIndex The index of the row to update.
+     * @param {string} value The new value of the label.
      */
     function updateRowLabel(rowIndex: number, value: string) {
       context.emit('updateRowLabel', rowIndex, value);
     }
     /**
      * Sends upwards the event to update the data of a cell.
-     * @param rowIndex The index of the row to update.
-     * @param dataIndex The index of the cell to update.
-     * @param value The new value of the cell.
+     * @param {number} rowIndex The index of the row to update.
+     * @param {number} dataIndex The index of the cell to update.
+     * @param {string} value The new value of the cell.
+     * @emits updateRowData The event to update the data of a cell.
      */
     function updateRowData(rowIndex: number, dataIndex: number, value: string) {
       context.emit('updateRowData', rowIndex, dataIndex, value);
     }
 
+    /**
+     * Returns the prefix for a cell if it's a row with multiple data cells.
+     * @param {number} rowDataLenght The number of data cells in the row.
+     * @param {number} dataIndex The index of the cell to which the prefix will be added.
+     */
     function getCellPrefix(rowDataLenght: number, dataIndex: number) {
       return rowDataLenght > 1 ? multidataRowPrefix[dataIndex] : '';
     }
 
+    /**
+     * Sends upwards the event to add a new row to the table.
+     * @emits addRow
+     */
     function addRow() {
       context.emit('addRow');
     }

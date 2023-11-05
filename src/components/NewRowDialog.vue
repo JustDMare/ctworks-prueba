@@ -45,10 +45,10 @@ export default defineComponent({
      * Computed property to generate the options for the `q-select` component based on the
      * maximum number of cells allowed by `MAX_NUMBER_OF_DATA_CELLS`.
      * @computed
-     * @returns An array of numbers from 1 to `MAX_NUMBER_OF_DATA_CELLS`.
+     * @returns {number[]} An array of numbers from 1 to `MAX_NUMBER_OF_DATA_CELLS`.
      * @see MAX_NUMBER_OF_DATA_CELLS
      */
-    const options = computed(() => {
+    const options = computed<number[]>(() => {
       const options = [];
       for (let i = 1; i <= MAX_NUMBER_OF_DATA_CELLS; i++) {
         options.push(i);
@@ -60,14 +60,15 @@ export default defineComponent({
 
     /**
      * Computed property to keep track of the dialog's state.
-     * @computed isDialogOpen
+     * @computed
+     * @returns {boolean} The current state of the dialog.
      *
      * @remarks
      * In Vue 3 it could be done with a simple `v-model` directive, as it has some
      * built-in updating capabilities, but these are not available in Vue 2 as far as I
      * know, even with the `setup` syntax.
      */
-    const isDialogOpen = computed({
+    const isDialogOpen = computed<boolean>({
       get() {
         return props.isOpen;
       },
@@ -79,7 +80,7 @@ export default defineComponent({
     /**
      * Emits an event to add a new row to the table. The number of data cells is taken
      * from the `selectedOption` attribute.
-     * @emits addNewRow
+     * @emits addNewRow The event to add a new row to the table.
      */
     function addNewRow() {
       context.emit('addNewRow', selectedOption.value);

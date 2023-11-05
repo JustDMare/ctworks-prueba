@@ -36,15 +36,15 @@ export default defineComponent({
 
     /**
      * Updates the visibility of the NewRowDialog.
-     * @param isOpen The new visibility state of the dialog.
+     * @param {boolean} isOpen The new visibility state of the dialog.
      */
     function updateNewRowDialogVisibility(isOpen: boolean) {
       isNewRowDialogOpen.value = isOpen;
     }
     /**
      * Updates the label of a row.
-     * @param rowIndex The index of the row to update.
-     * @param value The new value of the label.
+     * @param {number} rowIndex The index of the row to update.
+     * @param {string} value The new value of the label.
      *
      * @remarks
      * This could have been implemented in different ways (filtering by label, for
@@ -57,9 +57,9 @@ export default defineComponent({
     }
     /**
      * Updates the a certain data cell of a row.
-     * @param rowIndex The index of the row to update.
-     * @param dataIndex The index of the cell to update.
-     * @param value The new value of the cell.
+     * @param {number} rowIndex The index of the row to update.
+     * @param {number} dataIndex The index of the cell to update.
+     * @param {string} value The new value of the cell.
      *
      * @remarks
      * Same as above regarding the implementation.
@@ -69,8 +69,9 @@ export default defineComponent({
     }
     /**
      * Adds a new row to the table with default values.
+     * @param {number} numberOfDataCells The number of data cells to add to the row.
      */
-    function addRow(numberOfDataCells: number) {
+    function addRow(numberOfDataCells: number): void {
       const data: string[] = [];
       for (let i = 0; i < numberOfDataCells; i++) {
         data.push('');
