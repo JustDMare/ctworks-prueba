@@ -26,8 +26,11 @@ export function exportToPDF(tableData: TableData) {
           image: base64Logo,
           fit: [100, 100]
         },
-        { text: 'hi' }
+        { text: 'Proceso de selección Octubre 2023' }
       ]
+    },
+    footer: {
+      columns: [{ text: 'Daniel Adrian Mare' }, generateDateElement()]
     },
     content: {
       table: {
@@ -39,6 +42,18 @@ export function exportToPDF(tableData: TableData) {
   };
   pdfMake.createPdf(docDefinition).open();
 }
+
+function generateDateElement(): ContentText {
+  const date: string = new Date().toLocaleString('es-ES', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
+  return { text: date, alignment: 'right' };
+}
+
 /**
  * Dinamically generates the widths of the table columns. It starts with 2 columns, as
  * these are the minimum required. Then if it finds a row with 2 or data items, it adds a
