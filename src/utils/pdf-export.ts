@@ -30,7 +30,10 @@ export function exportToPDF(tableData: TableData) {
       ]
     },
     footer: {
-      columns: [{ text: 'Daniel Adrian Mare' }, generateDateElement()]
+      columns: [
+        { text: 'Daniel Adrian Mare' },
+        { text: generateDateElement(), alignment: 'right' }
+      ]
     },
     content: {
       table: {
@@ -43,15 +46,25 @@ export function exportToPDF(tableData: TableData) {
   pdfMake.createPdf(docDefinition).open();
 }
 
-function generateDateElement(): ContentText {
+/**
+ * Generates the date text for the footer
+ * @returns {string} The date text
+ *
+ * @remarks
+ * I was not sure if the location shown in the example was supposed to be my city or if I
+ * was supposed to get the city of the user via geolocation, but since this added more
+ * complexity due to having to Google's API to get the city and it wasn't specified in the
+ * requirements, I decided to just hardcode my city.
+ */
+function generateDateElement(): string {
   const date: string = new Date().toLocaleString('es-ES', {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
     day: 'numeric'
   });
-
-  return { text: date, alignment: 'right' };
+  const dateElement = `Oviedo, ${date}`;
+  return dateElement;
 }
 
 /**
