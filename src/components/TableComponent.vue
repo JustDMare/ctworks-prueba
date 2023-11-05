@@ -20,6 +20,7 @@
           v-for="(cell, dataIndex) in row.data"
           :key="dataIndex"
           :cell-data="cell"
+          
           @updateCellData="updateRowData(rowIndex, dataIndex, $event)"
         />
       </tr>
