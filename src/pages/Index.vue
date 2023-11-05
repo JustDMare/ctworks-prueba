@@ -7,6 +7,7 @@
       @addRow="addRow"
       @openNewRowDialog="updateNewRowDialogVisibility(true)"
     ></table-component>
+    <q-btn flat :label="$t('exportBtn')" @click="exportToPDF" />
     <new-row-dialog
       :is-open="isNewRowDialogOpen"
       @closeNewRowDialog="updateNewRowDialogVisibility"
@@ -20,6 +21,7 @@ import TableComponent from 'src/components/TableComponent.vue';
 import NewRowDialog from 'src/components/NewRowDialog.vue';
 import { defineComponent, ref } from 'vue';
 import { TableData } from 'src/models/table-data';
+import { exportToPDF } from 'src/utils/pdf-export';
 
 export default defineComponent({
   name: 'PageIndex',
@@ -81,7 +83,8 @@ export default defineComponent({
       updateRowLabel,
       addRow,
       isNewRowDialogOpen,
-      updateNewRowDialogVisibility
+      updateNewRowDialogVisibility,
+      exportToPDF
     };
   }
 });
