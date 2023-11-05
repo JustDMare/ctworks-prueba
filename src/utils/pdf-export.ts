@@ -20,26 +20,73 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
  */
 export function exportToPDF(tableData: TableData) {
   const docDefinition: TDocumentDefinitions = {
+    pageMargins: [40, 120, 40, 40],
     header: {
+      style: 'header',
       columns: [
         {
           image: base64Logo,
-          fit: [100, 100]
+          fit: [150, 150]
         },
-        { text: 'Proceso de selección Octubre 2023' }
+        {
+          stack: [{ text: 'Proceso de selección' }, { text: 'Octubre 2023' }]
+        }
       ]
     },
     footer: {
-      columns: [
-        { text: 'Daniel Adrian Mare' },
-        { text: generateDateElement(), alignment: 'right' }
+      style: 'footer',
+      stack: [
+        {
+          table: {
+            headerRows: 1,
+            widths: ['*'],
+            body: [[''], ['']]
+          },
+          layout: 'headerLineOnly'
+        },
+        {
+          columns: [
+            { text: 'Daniel Adrian Mare' },
+            { text: generateDateElement() }
+          ]
+        }
       ]
     },
     content: {
+      style: 'content',
       table: {
         headerRows: 1,
         widths: getTableWidths(tableData),
         body: generateTableBody(tableData)
+      }
+    },
+    styles: {
+      header: {
+        fontSize: 20,
+        bold: true,
+        alignment: 'center',
+        marginTop: 20,
+        lineHeight: 1.2
+      },
+      footer: {
+        fontSize: 14,
+        bold: true,
+        alignment: 'center',
+        marginBottom: 20
+      },
+      content: {
+        fontSize: 16
+      },
+      tableHeader: {
+        alignment: 'center',
+        bold: true,
+        fillColor: '#333',
+        color: '#fff',
+        margin: [0, 5, 0, 5]
+      },
+      tableCell: {
+        alignment: 'center',
+        margin: [0, 5, 0, 5]
       }
     }
   };
@@ -115,8 +162,12 @@ function generateTableBody(tableData: TableData): TableCell[][] {
  */
 function generateTableHeaders(): TableCell[] {
   const headers: TableCell[] = [
-    { text: 'Field Label', colSpan: 1 },
-    { text: 'Data Value', colSpan: MAX_NUMBER_OF_DATA_CELLS }
+    { text: 'Field Label', colSpan: 1, style: 'tableHeader' },
+    {
+      text: 'Data Value',
+      colSpan: MAX_NUMBER_OF_DATA_CELLS,
+      style: 'tableHeader'
+    }
   ];
   for (let i = 0; i < MAX_NUMBER_OF_DATA_CELLS - 1; i++) {
     headers.push({});
@@ -140,13 +191,14 @@ function generateTableHeaders(): TableCell[] {
  */
 function generateTableRow(row: RowData): TableCell[] {
   const tableRow: TableCell[] = [];
-  tableRow.push({ text: row.label });
+  tableRow.push({ text: row.label, style: 'tableCell' });
 
   const tableCellsPerItem: number[] = distributeDataColSpans(row.data.length);
 
   row.data.forEach((cell, index) => {
     const tableCell: TableCell = {
-      text: cell
+      text: cell,
+      style: 'tableCell'
     };
     if (row.data.length > 1) {
       (<ContentText>tableCell).text = `${multidataRowPrefix[index]}: ${cell}`;
