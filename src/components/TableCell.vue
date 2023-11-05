@@ -1,5 +1,6 @@
 <template>
   <td>
+    <span v-if="cellPrefix">{{ cellPrefix }}: </span>
     <input v-model="localCellData" />
   </td>
 </template>
@@ -13,6 +14,10 @@ export default defineComponent({
     cellData: {
       type: String,
       required: true
+    },
+    cellPrefix: {
+      type: String,
+      default: ''
     }
   },
   setup(props, context) {

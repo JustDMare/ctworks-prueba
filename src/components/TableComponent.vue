@@ -20,7 +20,7 @@
           v-for="(cell, dataIndex) in row.data"
           :key="dataIndex"
           :cell-data="cell"
-          
+          :cellPrefix="getCellPrefix(row.data.length, dataIndex)"
           @updateCellData="updateRowData(rowIndex, dataIndex, $event)"
         />
       </tr>
@@ -41,6 +41,7 @@
 import { TableData } from 'src/models/table-data';
 import { defineComponent, PropType } from 'vue';
 import TableCell from './TableCell.vue';
+import { multidataRowPrefix } from 'src/config/default-values';
 
 export default defineComponent({
   name: 'TableComponent',
@@ -70,11 +71,21 @@ export default defineComponent({
       context.emit('updateRowData', rowIndex, dataIndex, value);
     }
 
+    function getCellPrefix(rowDataLenght: number, dataIndex: number) {
+      return rowDataLenght > 1 ? multidataRowPrefix[dataIndex] : '';
+    }
+
     function addRow() {
       context.emit('addRow');
     }
 
-    return { updateRowData, updateRowLabel, addRow };
+    return {
+      updateRowData,
+      updateRowLabel,
+      addRow,
+      multidataRowPrefix,
+      getCellPrefix
+    };
   }
 });
 </script>

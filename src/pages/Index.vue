@@ -20,7 +20,6 @@ import TableComponent from 'src/components/TableComponent.vue';
 import NewRowDialog from 'src/components/NewRowDialog.vue';
 import { defineComponent, ref } from 'vue';
 import { TableData } from 'src/models/table-data';
-import { multidataRowPrefix } from 'src/config/default-values';
 
 export default defineComponent({
   name: 'PageIndex',
@@ -71,14 +70,10 @@ export default defineComponent({
      */
     function addRow(numberOfDataCells: number) {
       const data: string[] = [];
-      if (numberOfDataCells === 1) {
+      for (let i = 0; i < numberOfDataCells; i++) {
         data.push('');
-      } else {
-        for (let i = 0; i < numberOfDataCells; i++) {
-          data.push(multidataRowPrefix[i] + ': ');
-        }
       }
-      tableData.value.push({ label: 'label', data });
+      tableData.value.push({ label: '', data });
     }
     return {
       tableData,
