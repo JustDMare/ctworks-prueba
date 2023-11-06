@@ -20,6 +20,7 @@
           v-for="(cell, dataIndex) in row.data"
           :key="dataIndex"
           :cell-data="cell"
+          :colSpan="getCellColSpan(row.data.length, dataIndex)"
           :cellPrefix="getCellPrefix(row.data.length, dataIndex)"
           @updateCellData="updateRowData(rowIndex, dataIndex, $event)"
         />
@@ -45,6 +46,7 @@ import {
   MAX_NUMBER_OF_DATA_CELLS,
   multidataRowPrefix
 } from 'src/config/default-values';
+import { distributeDataColSpans } from 'src/utils/distribute-data-colspan';
 
 export default defineComponent({
   name: 'TableComponent',
@@ -85,6 +87,16 @@ export default defineComponent({
     }
 
     /**
+     * Returns the colspan for a cell. Makes use of the {@link distributeDataColSpans} function
+     * @param {number} rowDataLenght Length of the data array for that row
+     * @param {number} dataIndex Index of the cell to which the colspan will be applied
+     * @see distributeDataColSpans
+     */
+    function getCellColSpan(rowDataLenght: number, dataIndex: number) {
+      return distributeDataColSpans(rowDataLenght)[dataIndex];
+    }
+
+    /**
      * Sends upwards the event to add a new row to the table.
      * @emits addRow
      */
@@ -98,7 +110,8 @@ export default defineComponent({
       addRow,
       multidataRowPrefix,
       getCellPrefix,
-      MAX_NUMBER_OF_DATA_CELLS
+      MAX_NUMBER_OF_DATA_CELLS,
+      getCellColSpan
     };
   }
 });

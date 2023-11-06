@@ -1,8 +1,14 @@
 <template>
-  <td>
-    <div class="inline-td">
+  <td :colspan="colSpan">
+    <div class="inline-td" :class="{ 'left-padding': !!cellPrefix }">
       <span v-if="cellPrefix">{{ cellPrefix }}: </span>
-      <q-input dense borderless v-model="localCellData" />
+      <q-input
+        dense
+        borderless
+        debounce="500"
+        v-model="localCellData"
+        :input-style="!cellPrefix ? { textAlign: 'center' } : {}"
+      />
     </div>
   </td>
 </template>
@@ -20,6 +26,10 @@ export default defineComponent({
     cellPrefix: {
       type: String,
       default: ''
+    },
+    colSpan: {
+      type: Number,
+      default: 1
     }
   },
   setup(props, context) {
@@ -44,12 +54,19 @@ export default defineComponent({
 td {
   vertical-align: middle;
 }
+.text-center {
+  text-align: center !important;
+}
 .inline-td {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  justify-content: center;
   align-items: center;
   gap: 5px;
-  padding-left: 8px;
+}
+.left-padding {
+  // This is a workaround to align the text to the center when there is a prefix.
+  padding-left: 40%;
 }
 </style>
