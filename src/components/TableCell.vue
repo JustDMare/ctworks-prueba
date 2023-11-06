@@ -66,7 +66,6 @@ td {
   gap: 5px;
 }
 .left-padding {
-  // This is a workaround to align the text to the center when there is a prefix.
-  padding-left: 40%;
+  padding-left: 24px;
 }
 </style>
