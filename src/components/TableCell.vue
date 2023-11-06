@@ -1,7 +1,9 @@
 <template>
   <td>
-    <span v-if="cellPrefix">{{ cellPrefix }}: </span>
-    <input v-model="localCellData" />
+    <div class="inline-td">
+      <span v-if="cellPrefix">{{ cellPrefix }}: </span>
+      <q-input dense borderless v-model="localCellData" />
+    </div>
   </td>
 </template>
 
@@ -38,3 +40,16 @@ export default defineComponent({
   }
 });
 </script>
+<style lang="scss" scoped>
+td {
+  vertical-align: middle;
+}
+.inline-td {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 5px;
+  padding-left: 8px;
+}
+</style>

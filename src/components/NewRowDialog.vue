@@ -1,6 +1,6 @@
 <template>
   <q-dialog v-model="isDialogOpen">
-    <q-card style="min-width: 350px">
+    <q-card class="min-width">
       <q-card-section>
         <div class="text-h6">{{ $t('newRowDialog.title') }}</div>
       </q-card-section>
@@ -89,3 +89,8 @@ export default defineComponent({
   }
 });
 </script>
+<style lang="scss" scoped>
+.min-width {
+  min-width: 350px;
+}
+</style>

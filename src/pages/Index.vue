@@ -1,13 +1,15 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <table-component
-      :table-data="tableData"
-      @updateRowData="updateRowData"
-      @updateRowLabel="updateRowLabel"
-      @addRow="addRow"
-      @openNewRowDialog="updateNewRowDialogVisibility(true)"
-    ></table-component>
-    <q-btn flat :label="$t('exportBtn')" @click="exportToPDF(tableData)" />
+    <div class="flex">
+      <table-component
+        :table-data="tableData"
+        @updateRowData="updateRowData"
+        @updateRowLabel="updateRowLabel"
+        @addRow="addRow"
+        @openNewRowDialog="updateNewRowDialogVisibility(true)"
+      ></table-component>
+      <q-btn outline :label="$t('exportBtn')" @click="exportToPDF(tableData)" />
+    </div>
     <new-row-dialog
       :is-open="isNewRowDialogOpen"
       @closeNewRowDialog="updateNewRowDialogVisibility"
@@ -90,3 +92,13 @@ export default defineComponent({
   }
 });
 </script>
+<style lang="scss" scoped>
+.flex {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.q-btn {
+  align-self: flex-end;
+}
+</style>

@@ -5,7 +5,7 @@
         <th>
           {{ $t('table.labelHeader') }}
         </th>
-        <th>
+        <th :colspan="MAX_NUMBER_OF_DATA_CELLS">
           {{ $t('table.dataHeader') }}
         </th>
       </tr>
@@ -27,10 +27,10 @@
     </tbody>
     <tfoot>
       <tr>
-        <td colspan="3">
-          <button @click="$emit('openNewRowDialog')">
+        <td :colspan="MAX_NUMBER_OF_DATA_CELLS + 1" class="text-center">
+          <q-btn outline @click="$emit('openNewRowDialog')">
             {{ $t('table.addRowBtn') }}
-          </button>
+          </q-btn>
         </td>
       </tr>
     </tfoot>
@@ -41,7 +41,10 @@
 import { TableData } from 'src/models/table-data';
 import { defineComponent, PropType } from 'vue';
 import TableCell from './TableCell.vue';
-import { multidataRowPrefix } from 'src/config/default-values';
+import {
+  MAX_NUMBER_OF_DATA_CELLS,
+  multidataRowPrefix
+} from 'src/config/default-values';
 
 export default defineComponent({
   name: 'TableComponent',
@@ -94,8 +97,30 @@ export default defineComponent({
       updateRowLabel,
       addRow,
       multidataRowPrefix,
-      getCellPrefix
+      getCellPrefix,
+      MAX_NUMBER_OF_DATA_CELLS
     };
   }
 });
 </script>
+<style lang="scss" scoped>
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  th,
+  td {
+    border: 1px solid #ccc;
+  }
+  th {
+    background-color: var(--q-color-primary);
+    color: white;
+    padding: 8px 0px;
+  }
+  tfoot {
+    td {
+      padding: 8px 0px;
+    }
+  }
+}
+</style>
