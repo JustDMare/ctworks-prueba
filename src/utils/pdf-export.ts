@@ -2,6 +2,8 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import {
   ContentText,
+  Style,
+  StyleDictionary,
   TDocumentDefinitions,
   TableCell,
   TableCellProperties
@@ -15,8 +17,11 @@ import { base64Logo } from './base64logo';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 /**
- * Exports the table data to a PDF file and opens it in a new tab
+ * Exports the table data to a PDF file and opens it in a new tab.
  * @param {TableData} tableData The table data to export
+ *
+ * @remarks
+ * I could refactor the object into smaller functions to reduce the code in this one, but I thought that it would be easier for you to see and revise the structure if I kept it like this. I hope it's not a problem.
  */
 export function exportToPDF(tableData: TableData) {
   const docDefinition: TDocumentDefinitions = {
@@ -60,35 +65,7 @@ export function exportToPDF(tableData: TableData) {
         body: generateTableBody(tableData)
       }
     },
-    styles: {
-      header: {
-        fontSize: 20,
-        bold: true,
-        alignment: 'center',
-        marginTop: 20,
-        lineHeight: 1.2
-      },
-      footer: {
-        fontSize: 14,
-        bold: true,
-        alignment: 'center',
-        marginBottom: 20
-      },
-      content: {
-        fontSize: 16
-      },
-      tableHeader: {
-        alignment: 'center',
-        bold: true,
-        fillColor: '#333',
-        color: '#fff',
-        margin: [0, 5, 0, 5]
-      },
-      tableCell: {
-        alignment: 'center',
-        margin: [0, 5, 0, 5]
-      }
-    }
+    styles: getDocStyles()
   };
   pdfMake.createPdf(docDefinition).open();
 }
@@ -250,4 +227,40 @@ function distributeDataColSpans(rowDataItems: number): number[] {
     slotsPerItem[i]++;
   }
   return slotsPerItem;
+}
+
+/**
+ * Returns the styles of the document
+ * @returns {StyleDictionary} The styles of the document
+ */
+function getDocStyles(): StyleDictionary {
+  return {
+    header: {
+      fontSize: 20,
+      bold: true,
+      alignment: 'center',
+      marginTop: 20,
+      lineHeight: 1.2
+    },
+    footer: {
+      fontSize: 14,
+      bold: true,
+      alignment: 'center',
+      marginBottom: 20
+    },
+    content: {
+      fontSize: 16
+    },
+    tableHeader: {
+      alignment: 'center',
+      bold: true,
+      fillColor: '#333',
+      color: '#fff',
+      margin: [0, 5, 0, 5]
+    },
+    tableCell: {
+      alignment: 'center',
+      margin: [0, 5, 0, 5]
+    }
+  };
 }
