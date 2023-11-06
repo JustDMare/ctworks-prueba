@@ -7,14 +7,14 @@
         borderless
         debounce="500"
         v-model="localCellData"
-        :input-style="!cellPrefix ? { textAlign: 'center' } : {}"
+        :input-style="inputStyle"
       />
     </div>
   </td>
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, ref } from 'vue';
+import { defineComponent, watch, ref, computed } from 'vue';
 
 export default defineComponent({
   name: 'TableCell',
@@ -46,7 +46,21 @@ export default defineComponent({
         context.emit('updateCellData', newCellData);
       }
     );
-    return { localCellData };
+
+    /**
+     * Computed property to set the style of the input element to center the text if there
+     * is no prefix.
+     * @computed
+     * @returns The style of the input element.
+     *
+     * @remarks
+     * I haven't found a way to do this with CSS only due to how the `q-input` component
+     * works, so I decided to go with this approach.
+     */
+    const inputStyle = computed(() => {
+      return !props.cellPrefix ? { textAlign: 'center' } : {};
+    });
+    return { localCellData, inputStyle };
   }
 });
 </script>
@@ -54,9 +68,7 @@ export default defineComponent({
 td {
   vertical-align: middle;
 }
-.text-center {
-  text-align: center !important;
-}
+
 .inline-td {
   display: flex;
   flex-direction: row;
