@@ -21,7 +21,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
  * @param {TableData} tableData The table data to export
  *
  * @remarks
- * I could refactor the object into smaller functions to reduce the code in this one, but I thought that it would be easier for you to see and revise the structure if I kept it like this. I hope it's not a problem.
+ * I could refactor the object into smaller functions to reduce the code in this one, but I thought that it would be easier for you to see and revise the structure if I kept it like this.
  */
 export function exportToPDF(tableData: TableData) {
   const docDefinition: TDocumentDefinitions = {
